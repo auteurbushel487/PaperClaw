@@ -1,0 +1,99 @@
+# =============================================================================
+# Paper-Agent Research Interest Profile
+# =============================================================================
+# This file configures the paper reading agent's behavior. All skills read from
+# this file to customize search, scoring, and analysis.
+#
+# Copy this file to profile.yaml and modify it to match your research interests:
+#   cp profile.yaml.example profile.yaml
+#
+# Then run paper-pipeline to start discovering papers.
+# =============================================================================
+
+# ── Core Research Direction ──────────────────────────────────────────────────
+research_description: >
+  Your research description here. Describe your research interests and direction.
+  For example: "Exploring how technique X can be applied to domain Y to achieve Z."
+
+# ── Seed Papers (arXiv IDs) ─────────────────────────────────────────────────
+# Core papers that define your "academic taste". Will be used for:
+#   - Few-shot examples in relevance scoring
+#   - Cross-run dedup (auto-registered to seen_papers.json)
+#   - Idea generation knowledge base
+seed_papers:
+  # Replace with your seed paper arXiv IDs
+  - "XXXX.XXXXX"   # Your foundational paper 1
+  # - "XXXX.XXXXX" # Your foundational paper 2
+  # - "XXXX.XXXXX" # Your benchmark paper
+
+# ── Search Keywords ──────────────────────────────────────────────────────────
+# Multiple keyword groups (OR between groups, AND within each group)
+keywords:
+  - "your research keyword 1"
+  - "your research keyword 2"
+  # - "additional keyword"
+
+# ── Whitelist Authors ────────────────────────────────────────────────────────
+# Papers by these authors get +1 relevance bonus
+whitelist_authors: []
+  # Add authors of interest, e.g.:
+  # - "Author Name 1"
+  # - "Author Name 2"
+
+# ── arXiv Categories ────────────────────────────────────────────────────────
+arxiv_categories:
+  - "cs.IR"   # Information Retrieval
+  - "cs.AI"   # Artificial Intelligence
+  - "cs.CL"   # Computation and Language
+  - "cs.LG"   # Machine Learning
+
+# ── Search Configuration ────────────────────────────────────────────────────
+search_days: 7               # How far back to search (days)
+
+# ── Top Venues ───────────────────────────────────────────────────────────────
+# Papers from these venues get +1 relevance bonus
+top_venues:
+  - "NeurIPS"
+  - "ICML"
+  - "ICLR"
+  - "KDD"
+  - "WWW"
+  - "SIGIR"
+  - "RecSys"
+  - "CIKM"
+  - "WSDM"
+  - "ACL"
+  - "EMNLP"
+  - "AAAI"
+
+# ── Score Thresholds ─────────────────────────────────────────────────────────
+score_thresholds:
+  high: 7         # >= high → auto-select for deep reading
+  edge_low: 4     # edge_low..edge_high → human review zone
+  edge_high: 6
+  low: 3          # <= low → auto-discard
+
+# ── Notification ─────────────────────────────────────────────────────────────
+# Options: "local" (file only), "webhook" (custom webhook for notifications)
+notification_channel: "local"
+
+# ── Knowledge Base Backend ───────────────────────────────────────────────────
+# Options: "local_markdown" (default), "notion", "obsidian"
+knowledge_base_backend: "local_markdown"
+
+# ── Research Directory ───────────────────────────────────────────────────────
+# Where read-arxiv-paper skill writes card.md (OpenClaw workspace default).
+workspace_research_dir: "./workspace_research"
+
+# Where card_parser reads card.md from (your preferred persistent location).
+# sync-cards step auto-copies from workspace_research_dir → research_dir.
+# Synced sub-directories: papers/, SOUL/
+research_dir: "./research"
+
+# ── Idea Generation ──────────────────────────────────────────────────────────
+# Options: "per_run" (every pipeline run), "weekly", "manual"
+idea_generation_frequency: "per_run"
+
+# ── Human Review Settings ────────────────────────────────────────────────────
+human_review_wait_days: 3                # Days to wait for human review
+human_review_default_policy: "discard"   # "discard" or "accept" on timeout

@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Runtime data (personal research data)
+pipeline_data/
+papers/
+ideas/
+
+# Data files (contain personal research records)
+paper_index.json
+seed_papers.json
+seen_papers.json
+
+# Personal configuration (use profile.yaml.example as template)
+profile.yaml
+
+# Environment variables
+.env
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
